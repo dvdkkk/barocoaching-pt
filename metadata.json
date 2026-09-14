@@ -1,0 +1,6 @@
+{
+  "name": "바로코칭 (Baro Coaching)",
+  "description": "대기업·공기업·금융권·바이오 맞춤형 1:1 취업 및 면접 코칭, 자기소개서 첨삭 전문 바로코칭",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
