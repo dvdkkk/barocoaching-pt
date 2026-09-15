@@ -32,7 +32,28 @@ export default function App() {
   // Determine initial page from URL pathname if present
   const getInitialPage = (): string => {
     if (typeof window !== 'undefined') {
-      const path = window.location.pathname.replace('/', '');
+      let path = window.location.pathname.replace(/^\//, '');
+      if (!path) return 'major.html';
+      if (path === 'index.html') return 'major.html';
+
+      // If it doesn't end with .html, try appending .html to check compatibility
+      if (!path.endsWith('.html')) {
+        const potentialPage = `${path}.html`;
+        if (
+          [
+            'major.html',
+            'resume.html',
+            'public.html',
+            'finance.html',
+            'bio.html',
+            'contact.html',
+            'coach.html'
+          ].includes(potentialPage)
+        ) {
+          return potentialPage;
+        }
+      }
+
       if (
         [
           'major.html',
@@ -41,11 +62,10 @@ export default function App() {
           'finance.html',
           'bio.html',
           'contact.html',
-          'coach.html',
-          'index.html'
+          'coach.html'
         ].includes(path)
       ) {
-        return path === 'index.html' ? 'major.html' : path;
+        return path;
       }
     }
     return 'major.html';
@@ -60,7 +80,25 @@ export default function App() {
   // Handle browser back / forward
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname.replace('/', '') || 'index.html';
+      let path = window.location.pathname.replace(/^\//, '') || 'major.html';
+      if (path === 'index.html') path = 'major.html';
+
+      if (!path.endsWith('.html')) {
+        const potentialPage = `${path}.html`;
+        if (
+          [
+            'major.html',
+            'resume.html',
+            'public.html',
+            'finance.html',
+            'bio.html',
+            'contact.html',
+            'coach.html'
+          ].includes(potentialPage)
+        ) {
+          path = potentialPage;
+        }
+      }
       setCurrentPage(path);
     };
     window.addEventListener('popstate', handlePopState);
@@ -74,7 +112,8 @@ export default function App() {
     } catch (err) {
       // In some sandbox environments pushState might be restricted
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 수정2: 클릭 시 smooth scroll 없이 처음부터 즉시 맨위(0,0)로 보일 수 있도록 auto/직접 스크롤 처리
+    window.scrollTo(0, 0);
   };
 
   const openConsultation = (type: 'fast' | 'custom' = 'fast') => {

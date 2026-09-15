@@ -72,10 +72,10 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* 코치진 소개 Button */}
             <div>
-              <button
-                type="button"
+              <a
+                href="/coach.html"
                 onClick={(e) => handleNavClick(e, 'coach.html')}
-                className={`px-3 py-2 rounded-lg transition-all duration-150 whitespace-nowrap cursor-pointer ${
+                className={`px-3 py-2 rounded-lg transition-all duration-150 whitespace-nowrap cursor-pointer block ${
                   currentPage === 'coach.html'
                     ? 'text-blue-600 font-bold bg-blue-50/80 shadow-xs'
                     : 'hover:text-blue-600 hover:bg-slate-50'
@@ -83,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({
                 id="nav-community-dropdown-btn"
               >
                 코치진 소개
-              </button>
+              </a>
             </div>
 
             {/* Solid Blue Button: 빠른 상담신청 */}
